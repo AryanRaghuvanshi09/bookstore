@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import API from "../services/api";
+import "../styles/AddProduct.css"; // Make sure this path is correct
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const AddProduct = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="add-product-form" onSubmit={handleSubmit}>
       <h2>Add Product</h2>
       <input
         type="text"
