@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // Use useNavigate
 import API from "../services/api";
+import "../styles/Login.css";
 
 const Login = () => {
   const { role } = useParams(); // Get the role from URL
