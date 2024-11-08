@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
+import jsPDF from "jspdf";
 import API from "../services/api";
 
 const ProductSaleForm = () => {
-  const [products, setProducts] = useState([]); // Store products list
-  const [filteredProducts, setFilteredProducts] = useState([]); // Store filtered products for search
-  const [searchTerm, setSearchTerm] = useState(""); // Store search term
-  const [selectedProduct, setSelectedProduct] = useState(""); // Selected product
-  const [quantity, setQuantity] = useState(1); // Quantity to sell
-  const [totalPrice, setTotalPrice] = useState(0); // Store the total price
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [invoice, setInvoice] = useState(null);
 
-  // Fetch products when component loads
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await API.get("/products"); // Fetch available products
+        const response = await API.get("/products");
         setProducts(response.data);
-        setFilteredProducts(response.data); // Initialize filteredProducts
+        setFilteredProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -24,41 +25,36 @@ const ProductSaleForm = () => {
     fetchProducts();
   }, []);
 
-  // Handle search input change and filter products
   const handleSearchChange = (e) => {
     const searchValue = e.target.value.toLowerCase();
     setSearchTerm(searchValue);
 
-    // Filter products based on search term (by name or category)
     const filtered = products.filter((product) =>
       `${product.name} ${product.category}`.toLowerCase().includes(searchValue)
     );
     setFilteredProducts(filtered);
   };
 
-  // Handle product selection and update the total price
   const handleProductSelection = (e) => {
     const selectedId = e.target.value;
     setSelectedProduct(selectedId);
 
     const product = products.find((product) => product._id === selectedId);
     if (product) {
-      setTotalPrice(product.price * quantity); // Calculate total price
+      setTotalPrice(product.price * quantity);
     }
   };
 
-  // Handle quantity change and update the total price
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value, 10);
     setQuantity(newQuantity);
 
     const product = products.find((product) => product._id === selectedProduct);
     if (product) {
-      setTotalPrice(product.price * newQuantity); // Update total price
+      setTotalPrice(product.price * newQuantity);
     }
   };
 
-  // Handle product sale
   const handleProductSale = async (e) => {
     e.preventDefault();
 
@@ -72,18 +68,46 @@ const ProductSaleForm = () => {
         productId: selectedProduct,
         quantity,
       });
-      alert(response.data.message); // Show success message
+
+      const product = products.find((p) => p._id === selectedProduct);
+      const invoiceData = {
+        productName: product.name,
+        quantity,
+        pricePerUnit: product.price,
+        totalPrice,
+        date: new Date().toLocaleDateString(),
+      };
+
+      setInvoice(invoiceData);
+      generatePDF(invoiceData);
+
+      alert(response.data.message);
     } catch (error) {
       console.error("Error processing product sale:", error);
       alert("Product sale failed.");
     }
   };
 
+  const generatePDF = (invoiceData) => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Invoice", 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Date: ${invoiceData.date}`, 20, 30);
+    doc.text(`Product: ${invoiceData.productName}`, 20, 40);
+    doc.text(`Quantity: ${invoiceData.quantity}`, 20, 50);
+    doc.text(`Price per Unit: $${invoiceData.pricePerUnit}`, 20, 60);
+    doc.text(`Total Price: $${invoiceData.totalPrice}`, 20, 70);
+
+    doc.save("invoice.pdf"); // Save the PDF as "invoice.pdf"
+  };
+
   return (
     <div>
       <h2>Product Sale</h2>
       <form onSubmit={handleProductSale}>
-        {/* Search Input */}
         <label>Search Product:</label>
         <input
           type="text"
@@ -92,7 +116,6 @@ const ProductSaleForm = () => {
           placeholder="Search by name or category"
         />
 
-        {/* Select Product */}
         <label>Select Product:</label>
         <select value={selectedProduct} onChange={handleProductSelection}>
           <option value="">--Select Product--</option>
@@ -103,7 +126,6 @@ const ProductSaleForm = () => {
           ))}
         </select>
 
-        {/* Quantity */}
         <label>Quantity:</label>
         <input
           type="number"
@@ -112,14 +134,27 @@ const ProductSaleForm = () => {
           onChange={handleQuantityChange}
         />
 
-        {/* Total Price */}
         <div>
           <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
         </div>
 
-        {/* Submit Button */}
         <button type="submit">Sell Product</button>
       </form>
+
+      {/* Display invoice information if generated */}
+      {invoice && (
+        <div>
+          <h3>Invoice</h3>
+          <p>Product: {invoice.productName}</p>
+          <p>Quantity: {invoice.quantity}</p>
+          <p>Price per Unit: ${invoice.pricePerUnit}</p>
+          <p>Total Price: ${invoice.totalPrice}</p>
+          <p>Date: {invoice.date}</p>
+
+          {/* Option to download PDF again if needed */}
+          <button onClick={() => generatePDF(invoice)}>Download PDF</button>
+        </div>
+      )}
     </div>
   );
 };
