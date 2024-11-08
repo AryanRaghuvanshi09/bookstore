@@ -1,24 +1,37 @@
 // Login.jsx
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // Use useNavigate
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import API from "../services/api";
 
 const Login = () => {
-  const { role } = useParams(); // Get the role from URL
+  const { role } = useParams();
+  const location = useLocation();
   const [formData, setFormData] = useState({ username: "", password: "" });
-  const navigate = useNavigate(); // Use useNavigate for navigation
+  const navigate = useNavigate();
+
+  // Extract the redirect parameter from the query string
+  const searchParams = new URLSearchParams(location.search);
+  const redirect = searchParams.get("redirect");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post(`/auth/login`, { ...formData, role }); // Send the role with login request
+      const response = await API.post(`/auth/login`, { ...formData, role });
       localStorage.setItem("token", response.data.token);
       alert("Login successful");
-      // Redirect based on role
+
+      // Redirect based on role and redirect parameter
       if (role === "admin") {
-        navigate("/admin-dashboard");
+        if (redirect === "sales-insights") {
+          navigate("/sales-insights-dashboard"); // Go to Sales Insights Dashboard
+        } else {
+          navigate("/admin-dashboard"); // Regular Admin Dashboard
+        }
       } else if (role === "salesperson") {
         navigate("/salesperson-dashboard");
+      } else {
+        alert("Invalid role");
+        navigate("/"); // Redirect to role selection if role is invalid
       }
     } catch (error) {
       console.error("Login error", error);
