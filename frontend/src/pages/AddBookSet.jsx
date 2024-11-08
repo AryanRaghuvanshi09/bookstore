@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import API from "../services/api";
+import "../styles/AddBookSet.css";
 
 const AddBookSet = () => {
   const [formData, setFormData] = useState({
     school: "",
     className: "",
-    books: [{ name: "", price: 0, quantity: 1 }], // Initialize with one book entry
+    books: [{ name: "", price: 0, quantity: 1 }],
     setPrice: 0,
     totalQuantity: 1,
   });
@@ -35,70 +36,65 @@ const AddBookSet = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="add-bookset-form" onSubmit={handleSubmit}>
       <h2>Add Book Set</h2>
       <input
         type="text"
         placeholder="School"
         value={formData.school}
         onChange={(e) => setFormData({ ...formData, school: e.target.value })}
+        className="form-input"
       />
       <input
         type="text"
         placeholder="Class Name"
         value={formData.className}
-        onChange={(e) =>
-          setFormData({ ...formData, className: e.target.value })
-        }
+        onChange={(e) => setFormData({ ...formData, className: e.target.value })}
+        className="form-input"
       />
       {formData.books.map((book, index) => (
-        <div key={index}>
+        <div className="book-input-group" key={index}>
           <input
             type="text"
             placeholder="Book Name"
             value={book.name}
-            onChange={(e) =>
-              handleBookChange(index, "name", e.target.value)
-            }
+            onChange={(e) => handleBookChange(index, "name", e.target.value)}
+            className="form-input"
           />
           <input
             type="number"
             placeholder="Book Price"
             value={book.price}
-            onChange={(e) =>
-              handleBookChange(index, "price", parseFloat(e.target.value))
-            }
+            onChange={(e) => handleBookChange(index, "price", parseFloat(e.target.value))}
+            className="form-input"
           />
           <input
             type="number"
             placeholder="Book Quantity"
             value={book.quantity}
-            onChange={(e) =>
-              handleBookChange(index, "quantity", parseInt(e.target.value))
-            }
+            onChange={(e) => handleBookChange(index, "quantity", parseInt(e.target.value))}
+            className="form-input"
           />
         </div>
       ))}
-      <button type="button" onClick={handleAddBook}>
+      <button type="button" onClick={handleAddBook} className="add-button">
         Add Another Book
       </button>
       <input
         type="number"
         placeholder="Set Price"
         value={formData.setPrice}
-        onChange={(e) =>
-          setFormData({ ...formData, setPrice: parseFloat(e.target.value) })
-        }
+        onChange={(e) => setFormData({ ...formData, setPrice: parseFloat(e.target.value) })}
+        className="form-input"
       />
       <input
         type="number"
         placeholder="Total Quantity"
         value={formData.totalQuantity}
-        onChange={(e) =>
-          setFormData({ ...formData, totalQuantity: parseInt(e.target.value) })
-        }
+        onChange={(e) => setFormData({ ...formData, totalQuantity: parseInt(e.target.value) })}
+        className="form-input"
       />
-      <button type="submit">Add Book Set</button>
+      <button type="submit" className="submit-button">Add Book Set</button>
     </form>
   );
 };
