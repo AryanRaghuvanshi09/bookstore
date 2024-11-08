@@ -1,0 +1,51 @@
+/* Main container */
+.get-product-container {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    padding: 30px;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  .get-product-container h2 {
+    font-size: 2em;
+    color: #2c3e50;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  /* Product list container */
+  .product-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Product item */
+  .product-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    font-size: 1em;
+  }
+  
+  /* Product title */
+  .product-item h3 {
+    color: #3498db;
+    font-size: 1.2em;
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  /* Product details */
+  .product-item p {
+    margin: 3px 0;
+    color: #555;
+  }
+  
+  /* Price style */
+  .product-item p.price {
+    font-weight: bold;
+    color: #27ae60;
+  }
+  

@@ -1,0 +1,48 @@
+/* Main container */
+.book-sets-container {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    padding: 30px;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  .book-sets-container h2 {
+    font-size: 2em;
+    color: #2c3e50;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+  
+  /* Book Set list container */
+  .book-set-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Book set item */
+  .book-set-item {
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+    font-size: 1.1em;
+    color: #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Book set school/class name */
+  .book-set-item .set-info {
+    font-weight: bold;
+    color: #3498db;
+  }
+  
+  /* Book set price */
+  .book-set-item .set-price {
+    font-weight: bold;
+    color: #27ae60;
+    font-size: 1.1em;
+  }
+  
