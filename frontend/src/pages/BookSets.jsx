@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../services/api";
+import "../styles/GetBookSet.css"; // Import the CSS here
 
 const BookSets = () => {
   const [bookSets, setBookSets] = useState([]);
@@ -17,12 +18,15 @@ const BookSets = () => {
   }, []);
 
   return (
-    <div>
+    <div className="book-sets-container">
       <h2>Book Sets</h2>
-      <ul>
+      <ul className="book-set-list">
         {bookSets.map((set) => (
-          <li key={set._id}>
-            {set.school} - {set.className} - ${set.setPrice}
+          <li key={set._id} className="book-set-item">
+            <span className="set-info">
+              {set.school} - {set.className}
+            </span>
+            <span className="set-price">${set.setPrice}</span>
           </li>
         ))}
       </ul>

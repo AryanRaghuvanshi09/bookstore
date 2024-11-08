@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
+import "../styles/GetProduct.css"; // Import the CSS here
 
 const GetProduct = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Fetch all products on component mount
     const fetchProducts = async () => {
       try {
         const response = await API.get("/products");
@@ -19,18 +19,18 @@ const GetProduct = () => {
   }, []);
 
   return (
-    <div>
+    <div className="get-product-container">
       <h2>Product List</h2>
-      <ul>
+      <div className="product-list">
         {products.map((product) => (
-          <li key={product.id}>
+          <div key={product.id} className="product-item">
             <h3>{product.name}</h3>
             <p>Category: {product.category}</p>
-            <p>Price: ${product.price}</p>
+            <p className="price">Price: Rs.{product.price}</p>
             <p>Stock: {product.stock}</p>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

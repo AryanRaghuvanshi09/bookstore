@@ -1,16 +1,12 @@
-// RoleSelection.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/RoleSelection.css";
 
 const RoleSelection = () => {
   const navigate = useNavigate();
 
   const handleRoleSelection = (role) => {
-    navigate(`/login/${role}`);
-  };
-
-  const handleSalesInsightsLogin = () => {
-    navigate("/login/admin?redirect=sales-insights"); // Login for Sales Insights Dashboard
+    navigate(`/login/${role}`); // Navigate to login with the selected role
   };
 
   return (
@@ -19,11 +15,6 @@ const RoleSelection = () => {
       <button onClick={() => handleRoleSelection("admin")}>Admin</button>
       <button onClick={() => handleRoleSelection("salesperson")}>
         Salesperson
-      </button>
-
-      {/* Button for Sales Insights Dashboard Login */}
-      <button onClick={handleSalesInsightsLogin}>
-        Sales Insights Dashboard
       </button>
     </div>
   );

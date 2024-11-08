@@ -1,6 +1,6 @@
-// pages/GetCopies.js
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
+import "../styles/GetCopies.css"; // Import the CSS
 
 const GetCopies = () => {
   const [copies, setCopies] = useState([]);
@@ -19,7 +19,7 @@ const GetCopies = () => {
   }, []);
 
   return (
-    <div>
+    <div className="get-copies-container">
       <h2>Copies</h2>
       <table>
         <thead>
