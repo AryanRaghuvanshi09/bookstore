@@ -6,15 +6,15 @@ const AddBookSet = () => {
   const [formData, setFormData] = useState({
     school: "",
     className: "",
-    books: [{ name: "", price: 0, quantity: 1 }],
-    setPrice: 0,
-    totalQuantity: 1,
+    books: [{ name: "", price: "", quantity: ""}],
+    setPrice: "",
+    totalQuantity: "",
   });
 
   const handleAddBook = () => {
     setFormData({
       ...formData,
-      books: [...formData.books, { name: "", price: 0, quantity: 1 }],
+      books: [...formData.books, { name: "", price: "", quantity: ""}],
     });
   };
 
@@ -49,7 +49,9 @@ const AddBookSet = () => {
         type="text"
         placeholder="Class Name"
         value={formData.className}
-        onChange={(e) => setFormData({ ...formData, className: e.target.value })}
+        onChange={(e) =>
+          setFormData({ ...formData, className: e.target.value })
+        }
         className="form-input"
       />
       {formData.books.map((book, index) => (
@@ -65,14 +67,18 @@ const AddBookSet = () => {
             type="number"
             placeholder="Book Price"
             value={book.price}
-            onChange={(e) => handleBookChange(index, "price", parseFloat(e.target.value))}
+            onChange={(e) =>
+              handleBookChange(index, "price", parseFloat(e.target.value))
+            }
             className="form-input"
           />
           <input
             type="number"
             placeholder="Book Quantity"
             value={book.quantity}
-            onChange={(e) => handleBookChange(index, "quantity", parseInt(e.target.value))}
+            onChange={(e) =>
+              handleBookChange(index, "quantity", parseInt(e.target.value))
+            }
             className="form-input"
           />
         </div>
@@ -84,17 +90,23 @@ const AddBookSet = () => {
         type="number"
         placeholder="Set Price"
         value={formData.setPrice}
-        onChange={(e) => setFormData({ ...formData, setPrice: parseFloat(e.target.value) })}
+        onChange={(e) =>
+          setFormData({ ...formData, setPrice: parseFloat(e.target.value) })
+        }
         className="form-input"
       />
       <input
         type="number"
         placeholder="Total Quantity"
         value={formData.totalQuantity}
-        onChange={(e) => setFormData({ ...formData, totalQuantity: parseInt(e.target.value) })}
+        onChange={(e) =>
+          setFormData({ ...formData, totalQuantity: parseInt(e.target.value) })
+        }
         className="form-input"
       />
-      <button type="submit" className="submit-button">Add Book Set</button>
+      <button type="submit" className="submit-button">
+        Add Book Set
+      </button>
     </form>
   );
 };

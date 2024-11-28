@@ -12,6 +12,8 @@ import BookSets from "./pages/BookSets";
 import GetProduct from "./pages/GetProduct";
 import AddCopy from "./pages/AddCopies";
 import GetCopies from "./pages/GetCopies";
+import ProductSalesPage from "./pages/ProductSalesPage"; // New page for product sales
+import BookSetSalesPage from "./pages/BookSetSalesPage"; 
 
 const App = () => {
   return (
@@ -31,6 +33,8 @@ const App = () => {
       <Route path="/get-product" element={<GetProduct />} />
       <Route path="/add-copies" element={<AddCopy />} />
       <Route path="/get-copies" element={<GetCopies />} />
+      <Route path="/product-sales" element={<ProductSalesPage />} />
+       <Route path="/book-set-sales" element={<BookSetSalesPage />} />
     </Routes>
   );
 };

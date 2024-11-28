@@ -1,9 +1,13 @@
 /* Import Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-body, html {
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+body, html {
     width: 100%;
     height: 100%;
     font-family: 'Poppins', sans-serif;
@@ -22,16 +26,34 @@ body, html {
     padding: 15px 30px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width:auto
+    width: 100vw; /* Full viewport width */
 }
 
 .navbar-title {
     font-size: 1.7em;
     font-weight: 600;
-    margin: 0;
-    flex: 1;
     text-align: left;
+    margin: 0;
+}
+
+/* Styling for Navbar Links */
+.navbar-links {
+    display: flex;
+    gap: 20px; /* Space between each link */
+}
+
+.navbar-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #3498db;
 }
 
 .main-content {
@@ -39,17 +61,22 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px; /* Extra padding for mobile views */
+    padding: 20px;
 }
 
 .role-card {
     background-color: #ffffff;
     border-radius: 12px;
-    padding: 50px 40px;
+    padding: 40px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
     max-width: 400px;
     width: 100%;
+    transition: transform 0.2s ease;
+}
+
+.role-card:hover {
+    transform: translateY(-5px);
 }
 
 .role-card h2 {
@@ -59,11 +86,12 @@ body, html {
     font-weight: 600;
 }
 
+/* Styling for role button */
 .role-button {
     display: block;
     width: 100%;
-    padding: 15px 0;
-    font-size: 1.1em;
+    padding: 12px;
+    font-size: 1em;
     background-color: #3498db;
     color: white;
     border: none;
@@ -73,6 +101,7 @@ body, html {
     font-weight: 500;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'Poppins', sans-serif; /* Applying the Poppins font to the button text */
 }
 
 .role-button:hover {

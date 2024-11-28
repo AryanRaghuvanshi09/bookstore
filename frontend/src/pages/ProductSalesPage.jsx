@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FixedSizeList as List } from "react-window";
-import { Paper, Typography, Box, Divider } from "@mui/material";
+import { Paper, Typography, Box } from "@mui/material";
 import { Bar } from "react-chartjs-2";
 import ChartJS from "chart.js/auto";  // Auto imports the necessary chart components
 import API from "../services/api";
-
-const BooksetSalesPage = () => {
+import "../styles/ProductSales.css";
+const ProductSalesPage = () => {
   const [salesData, setSalesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ const BooksetSalesPage = () => {
 
   const fetchSalesData = async () => {
     try {
-      const response = await API.get("/sales/booksets");
+      const response = await API.get("/sales/products");
       setSalesData(response.data.sales || []);
       setLoading(false);
     } catch (error) {
@@ -25,9 +25,9 @@ const BooksetSalesPage = () => {
     }
   };
 
-  // Chart data for all booksets
+  // Chart data for all products
   const chartData = {
-    labels: salesData.map(item => item.booksetName),  // X-axis: Bookset names
+    labels: salesData.map(item => item.productName),  // X-axis: Product names
     datasets: [
       {
         label: "Quantity Sold",
@@ -68,7 +68,7 @@ const BooksetSalesPage = () => {
       x: {
         title: {
           display: true,
-          text: 'Bookset Name'
+          text: 'Product Name'
         }
       },
       y: {
@@ -82,17 +82,13 @@ const BooksetSalesPage = () => {
 
   const Row = ({ index, style }) => (
     <div style={style}>
-      <Paper sx={{ padding: 2, marginBottom: 1, borderRadius: 2, boxShadow: 2 }}>
-        <Typography variant="body1">
-          <strong>{salesData[index].booksetName}</strong>
-          <br />
-          <span style={{ color: "#4CAF50" }}>Quantity Sold: {salesData[index].totalQuantitySold}</span>
-          <br />
-          <span style={{ color: "#FF9800" }}>Total Revenue: ${salesData[index].totalRevenue.toFixed(2)}</span>
-          <br />
-          <span style={{ color: "#2196F3" }}>Average Price: ${salesData[index].averagePrice.toFixed(2)}</span>
-        </Typography>
-      </Paper>
+      <Typography variant="body1">
+        <strong>{salesData[index].productName}</strong>
+        <br />
+        Quantity Sold: {salesData[index].totalQuantitySold} <br />
+        Total Revenue: ${salesData[index].totalRevenue.toFixed(2)} <br />
+        Average Price: ${salesData[index].averagePrice.toFixed(2)}
+      </Typography>
     </div>
   );
 
@@ -107,26 +103,26 @@ const BooksetSalesPage = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Typography variant="h3" gutterBottom align="center">
-        Bookset Sales
+        Product Sales
       </Typography>
 
-      <Box sx={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
-        {/* Chart for all booksets */}
-        <Box sx={{ width: "70%", marginRight: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", maxWidth: 1200 }}>
+        {/* Chart for all products */}
+        <Box sx={{ width: "50%" }}>
           <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h6" align="center" gutterBottom>Bookset Sales Overview</Typography>
-            <Bar data={chartData} options={options} height={500} />
+            <Typography variant="h6" align="center" gutterBottom>Product Sales Overview</Typography>
+            <Bar data={chartData} options={options} />
           </Paper>
         </Box>
 
-        {/* Bookset List */}
-        <Box sx={{ width: "30%" }}>
+        {/* Product List */}
+        <Box sx={{ width: "50%", paddingLeft: 2 }}>
           <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h6" align="center" gutterBottom>Bookset Sales List</Typography>
+            <Typography variant="h6" align="center" gutterBottom>Product Sales List</Typography>
             <List
               height={400}
               itemCount={salesData.length}
-              itemSize={120}  // Adjust height per item
+              itemSize={100}  // Adjust height per item
               width={"100%"}
             >
               {Row}
@@ -138,4 +134,4 @@ const BooksetSalesPage = () => {
   );
 };
 
-export default BooksetSalesPage;
+export default ProductSalesPage;

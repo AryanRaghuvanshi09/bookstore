@@ -1,48 +1,145 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 /* Main container */
 .book-sets-container {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f9fa;
-    padding: 30px;
-    min-height: 100vh;
-  }
-  
-  /* Header */
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafc;
+  padding: 20px 10px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.book-sets-container h2 {
+  font-size: 2em;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 10px;
+  width: 90%;
+  max-width: 800px;
+  box-sizing: border-box;
+}
+
+/* Book Set list container */
+.book-set-list {
+  width: 100%;
+  max-width: 800px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Book set item */
+.book-set-item {
+  background-color: #ffffff;
+  border: 1px solid #e3e6ea;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-set-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Set info */
+.set-info h3 {
+  font-size: 1.1em;
+  color: #3498db;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.set-info p {
+  font-size: 0.95em;
+  color: #555;
+  margin: 4px 0;
+}
+
+.set-info strong {
+  color: #333;
+}
+
+/* Book details styling */
+.books-details h4 {
+  font-size: 1em;
+  color: #2c3e50;
+  margin: 10px 0 8px;
+  font-weight: 600;
+  border-bottom: 2px solid #e1e5eb;
+  padding-bottom: 4px;
+}
+
+.books-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Individual book item */
+.book-item {
+  background-color: #f5f7fa;
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #666;
+  border-left: 3px solid #3498db;
+}
+
+.book-item p {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.book-item strong {
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .book-sets-container h2 {
-    font-size: 2em;
-    color: #2c3e50;
-    text-align: center;
-    font-weight: 600;
-    margin-bottom: 30px;
+    font-size: 1.6em;
   }
-  
-  /* Book Set list container */
-  .book-set-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+
+  .set-info h3 {
+    font-size: 1em;
   }
-  
-  /* Book set item */
-  .book-set-item {
-    border-bottom: 1px solid #ddd;
-    padding: 15px 0;
-    font-size: 1.1em;
-    color: #555;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Book set school/class name */
-  .book-set-item .set-info {
-    font-weight: bold;
-    color: #3498db;
-  }
-  
-  /* Book set price */
-  .book-set-item .set-price {
-    font-weight: bold;
-    color: #27ae60;
-    font-size: 1.1em;
-  }
-  
+}
+/* Search Bar */
+.search-bar {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 8px;
+  border: 1px solid #e1e5eb;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+}
